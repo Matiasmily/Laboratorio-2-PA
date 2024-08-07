@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace Laboratorio_2_PA
 {
-    public class Deluxe
+    public class Deluxe : Habitacion
     {
+        public Deluxe(int numero, double precioPorNoche, bool disponible, string clienteAsignado, string serviciosExtras) : base(numero, precioPorNoche, disponible, clienteAsignado)
+        {
+        }
+
+        public string ServiciosExtras { get; set; }
+
     }
 }
