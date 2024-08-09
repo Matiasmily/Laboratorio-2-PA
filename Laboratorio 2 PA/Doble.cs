@@ -8,7 +8,7 @@ namespace Laboratorio_2_PA
 {
     public class Doble : Habitacion
     {
-        public Doble(int numero, double precioPorNoche, bool disponible, string clienteAsignado, bool vistaAlMar) : base(numero, precioPorNoche, disponible, clienteAsignado)
+        public Doble(int numero,double precioPorNoche, bool disponible, string clienteAsignado, bool vistaAlMar) : base(numero,  precioPorNoche, disponible, clienteAsignado)
         {
         }
 
