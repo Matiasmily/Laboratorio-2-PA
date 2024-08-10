@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -22,20 +23,9 @@ namespace Laboratorio_2_PA
             Disponible = disponible;
             ClienteAsignado = clienteAsignado;
         }
-        //public void AgregarDatosHabitacion()
-        //{
-        //    Console.Write("Numero: ");
-        //    string numero = Console.ReadLine();
-        //    Console.Write("Nombre: ");
-        //    string nombre = Console.ReadLine();
-        //    Console.Write("Precio: ");
-        //    double precio = double.Parse(Console.ReadLine());
-
-        //}
         public void IngresarHabitacion(List<Habitacion> listaHabitaciones)
         {
             int numero;
-            string nombre;
             double precio;
             bool tieneJacuzi = false;
             Console.WriteLine("--- AGREGAR HABITACIÓN ---");
@@ -53,15 +43,13 @@ namespace Laboratorio_2_PA
                             Console.WriteLine("--- HABITACIÓN SIMPLE ---");
                             Console.Write("Numero: ");
                             numero = int.Parse(Console.ReadLine()??"");
-                            Console.Write("Nombre: ");
-                            nombre = Console.ReadLine();
                             Console.Write("Precio: ");
-                            precio = double.Parse(Console.ReadLine());
+                            precio = double.Parse(Console.ReadLine() ?? "");
                             Console.Write("Número de Camas: ");
                             int numeroCamas = int.Parse(Console.ReadLine() ?? "");
                             Simple habitacionSimple = new Simple(numero, precio, true , "No hay cliente asignado", numeroCamas);
                             listaHabitaciones.Add(habitacionSimple);
-                            Console.WriteLine("Habitación Agregada con éxito");
+                            Console.WriteLine("\nHabitación Simple agregada con éxito");
                             Enter();
                             menuHabitacion = false;
                             break;
@@ -71,12 +59,10 @@ namespace Laboratorio_2_PA
                             Console.WriteLine("--- HABITACIÓN DOBLE ---");
                             Console.Write("Numero: ");
                             numero = int.Parse(Console.ReadLine() ?? "");
-                            Console.Write("Nombre: ");
-                            nombre = Console.ReadLine();
                             Console.Write("Precio: ");
-                            precio = double.Parse(Console.ReadLine());
+                            precio = double.Parse(Console.ReadLine() ?? "");
                             Console.Write("Vista al Mar (Si/No): ");
-                            string vista = Console.ReadLine().ToUpper();
+                            string vista = Console.ReadLine() ?? "".ToUpper();
                             if (vista == "Si")
                             {
                                  vistaAlMar = true;
@@ -87,7 +73,7 @@ namespace Laboratorio_2_PA
                             }
                             Doble habitacionDoble = new Doble(numero, precio, true, "No hay cliente asignado", vistaAlMar);
                             listaHabitaciones.Add((habitacionDoble));
-                            Console.WriteLine("Habitación Agregada con éxito");
+                            Console.WriteLine("\nHabitación Doble agregada con éxito");
                             Enter();
                             menuHabitacion = false;
                             break;
@@ -96,14 +82,12 @@ namespace Laboratorio_2_PA
                             Console.WriteLine("--- SUITES ---");
                             Console.Write("Numero: ");
                             numero = int.Parse(Console.ReadLine() ?? "");
-                            Console.Write("Nombre: ");
-                            nombre = Console.ReadLine();
                             Console.Write("Precio: ");
-                            precio = double.Parse(Console.ReadLine());
+                            precio = double.Parse(Console.ReadLine() ?? "");
                             Console.Write("Número de Habitaciones: ");
                             int numeroHabitaciones = int.Parse(Console.ReadLine() ?? "");
                             Console.Write("Jacuzzi (Si/No): ");
-                            string jacuzzi = Console.ReadLine().ToUpper();
+                            string jacuzzi = Console.ReadLine() ?? "".ToUpper();
                             if (jacuzzi == "Si")
                             {
                                 tieneJacuzi = true;
@@ -114,7 +98,7 @@ namespace Laboratorio_2_PA
                             }
                             Suite habitacionSuite = new Suite(numero, precio,true, "No hay cliente asignado", numeroHabitaciones, tieneJacuzi);
                             listaHabitaciones.Add(habitacionSuite);
-                            Console.WriteLine("Habitación Agregada con éxito");
+                            Console.WriteLine("\nSuite Agregada con éxito");
                             Enter();
                             menuHabitacion = false;
                             break;
@@ -123,15 +107,13 @@ namespace Laboratorio_2_PA
                             Console.WriteLine("--- HABITACIÓN DELUXE ---");
                             Console.Write("Numero: ");
                             numero = int.Parse(Console.ReadLine() ?? "");
-                            Console.Write("Nombre: ");
-                            nombre = Console.ReadLine();
                             Console.Write("Precio: ");
-                            precio = double.Parse(Console.ReadLine());
+                            precio = double.Parse(Console.ReadLine() ?? "");
                             Console.Write("Servicios extras: ");
                             string servicios =Console.ReadLine() ?? "";
                             Deluxe habitacionDeluxe = new Deluxe(numero, precio, true, "No hay cliente asignado", servicios);
                             listaHabitaciones.Add(habitacionDeluxe);
-                            Console.WriteLine("Habitación Agregada con éxito");
+                            Console.WriteLine("\nHabitación Deluxe agregada con éxito");
                             Enter();
                             menuHabitacion = false;
                             break;
@@ -188,5 +170,33 @@ namespace Laboratorio_2_PA
             }
             Enter();
         }
+       public void AsignarCliente(List<Habitacion> listaHabitaciones)
+        {
+            Console.Clear();
+            Console.WriteLine("--- ASIGNAR HABITACIÓN ---");
+            Console.Write("Ingrese el número de habitación que desea: ");
+            int numeroHabitacion = int.Parse(Console.ReadLine()??"");
+            Console.Write("Nombre del Cliente: ");
+            string nombreCliente = Console.ReadLine()??"";
+            Habitacion? buscarHabitacion = listaHabitaciones.Find(x=>x.Numero == numeroHabitacion && x.Disponible == true);
+            if ( buscarHabitacion != null)
+            {
+                buscarHabitacion.Disponible = false;
+                buscarHabitacion.ClienteAsignado = nombreCliente;
+                Console.WriteLine("\nHabitación asignada correctamente");
+                Enter();
+            }
+            else
+            {
+                Console.WriteLine("No se ha encontrado la habitación o no está disponible");
+                Enter();
+            }
+           
+        }
+        public void LiberarHabitacion(List<Habitacion> listaHabitaciones)
+        {
+
+        }
+
     }
 }

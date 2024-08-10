@@ -23,6 +23,7 @@ do
                 objetoHabitacion.MostrarInformacion(habitaciones);
                 break;
             case 4:
+                objetoHabitacion.AsignarCliente(habitaciones);
                 break;
             case 5:
                 break;
