@@ -10,10 +10,20 @@ namespace Laboratorio_2_PA
     {
         public Suite(int numero, double precioPorNoche, bool disponible, string clienteAsignado, int numeroDeHabitaciones, bool tieneJacuzzi) : base(numero, precioPorNoche, disponible, clienteAsignado)
         {
+            NumerodeHabitaciones = numeroDeHabitaciones;
+            TieneJacuzzi = tieneJacuzzi;
         }
 
         public int NumerodeHabitaciones { get; set; }
-        public bool TieneJacuzzi {  get; set; } 
+        public bool TieneJacuzzi {  get; set; }
 
+        public override void MostrarInformacionHabitacion()
+        {
+            string tipo = "Suite";
+            base.MostrarInformacionHabitacion();
+            Console.WriteLine($"\nNúmero de habitaciones: {NumerodeHabitaciones}\nTipo de Habitación:{tipo}");
+            Console.WriteLine("--------------------------------------------------------------------------------");
+            
+        }
     }
 }

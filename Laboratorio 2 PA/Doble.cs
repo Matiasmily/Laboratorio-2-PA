@@ -10,9 +10,17 @@ namespace Laboratorio_2_PA
     {
         public Doble(int numero,double precioPorNoche, bool disponible, string clienteAsignado, bool vistaAlMar) : base(numero,  precioPorNoche, disponible, clienteAsignado)
         {
+            VistaAlMar = vistaAlMar;
         }
 
         public bool VistaAlMar {  get; set; }
 
+        public override void MostrarInformacionHabitacion()
+        {
+            string tipo = "Doble";
+            base.MostrarInformacionHabitacion();
+            Console.WriteLine($"Vista al Mar: {VistaAlMar}\nTipo de Habitación:{tipo}");
+            Console.WriteLine("--------------------------------------------------------------------------------");
+        }
     }
 }

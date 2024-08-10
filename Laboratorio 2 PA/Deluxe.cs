@@ -10,9 +10,18 @@ namespace Laboratorio_2_PA
     {
         public Deluxe(int numero, double precioPorNoche, bool disponible, string clienteAsignado, string serviciosExtras) : base(numero, precioPorNoche, disponible, clienteAsignado)
         {
+            ServiciosExtras = serviciosExtras;
         }
 
         public string ServiciosExtras { get; set; }
 
+        public override void MostrarInformacionHabitacion()
+        {
+            string tipo = "Deluxe";
+            base.MostrarInformacionHabitacion();
+            Console.WriteLine($"Servicios Extras: {ServiciosExtras}\nTipo de Habitación:{tipo}");
+            Console.WriteLine("--------------------------------------------------------------------------------");
+            
+        }
     }
 }

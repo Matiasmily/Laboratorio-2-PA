@@ -117,6 +117,14 @@ namespace Laboratorio_2_PA
                             Enter();
                             menuHabitacion = false;
                             break;
+                        case 5:
+
+                            break;
+                        default:
+                            Console.WriteLine("\nIngrese una opción válida");
+                            menuHabitacion = false;
+                            Enter();
+                            break;
 
                     }
 
@@ -164,13 +172,16 @@ namespace Laboratorio_2_PA
             foreach (Habitacion habitaciones in listaHabitaciones)
             {
                 Console.WriteLine("--------------------------------------------------------------------------------");
-                Console.WriteLine($"Numero: {habitaciones.Numero}\nPrecio Por Noche: {habitaciones.PrecioPorNoche}\nDisponibilidad: {habitaciones.Disponible}\nCliente: {habitaciones.ClienteAsignado}");
-                Console.WriteLine("--------------------------------------------------------------------------------");
-
+                habitaciones.MostrarInformacionHabitacion();
             }
-            Enter();
+
         }
-       public void AsignarCliente(List<Habitacion> listaHabitaciones)
+        public virtual void MostrarInformacionHabitacion()
+        {
+            Console.WriteLine($"Numero: {Numero}\nPrecio Por Noche: {PrecioPorNoche}\nDisponibilidad: {Disponible}\nCliente: {ClienteAsignado}");
+
+        }
+        public void AsignarCliente(List<Habitacion> listaHabitaciones)
         {
             Console.Clear();
             Console.WriteLine("--- ASIGNAR HABITACIÓN ---");
@@ -195,7 +206,42 @@ namespace Laboratorio_2_PA
         }
         public void LiberarHabitacion(List<Habitacion> listaHabitaciones)
         {
-
+            Console.Clear();
+            Console.WriteLine("--- LIBERAR HABITACIÓN ---");
+            Console.Write("Ingrese el número de habitación que desea liberar: ");
+            int numeroHabitacion = int.Parse(Console.ReadLine() ?? "");
+            Habitacion? buscarHabitacion = listaHabitaciones.Find(x => x.Numero == numeroHabitacion && x.Disponible == false);
+            if (buscarHabitacion != null)
+            {
+                buscarHabitacion.Disponible = true;
+                buscarHabitacion.ClienteAsignado = "No hay cliente asignado";
+                Console.WriteLine("\nLa Habitación ha sido liberada");
+                Enter();
+            }
+            else
+            {
+                Console.WriteLine("No se ha encontrado la habitación o se encuentra libre");
+                Enter();
+            }
+        }
+        public void EliminarHabitacion(List<Habitacion> listaHabitaciones)
+        {
+            Console.Clear();
+            Console.WriteLine("--- ELIMINAR HABITACIÓN ---");
+            Console.Write("Ingrese el número de habitación que desea eliminar: ");
+            int numeroHabitacion = int.Parse(Console.ReadLine() ?? "");
+            Habitacion? buscarHabitacion = listaHabitaciones.Find(x => x.Numero == numeroHabitacion);
+            if (buscarHabitacion != null)
+            {
+                listaHabitaciones.Remove(buscarHabitacion);
+                Console.WriteLine("\nLa Habitación ha sido eliminada");
+                Enter();
+            }
+            else
+            {
+                Console.WriteLine("No se ha encontrado la habitación");
+                Enter();
+            }
         }
 
     }
